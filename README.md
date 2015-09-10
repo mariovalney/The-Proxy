@@ -8,5 +8,5 @@ Desenvolvido para a cadeira de Segurança e Auditoria Web da Faculdade de Tecnol
 * Desenvolvedor: [Mário Valney] (http://mariovalney.com/sobre)
 * URL: http://projetos.jangal.com.br/theproxy/
 * Tags: proxy, estudo, the proxy, avant, php
-* Framework Utilizado: [Avant] (http://projetos.jangal.com.br/theproxy/)
+* Framework Utilizado: [Avant] (http://projetos.jangal.com.br/avant/)
 * License: Apache 2.0
