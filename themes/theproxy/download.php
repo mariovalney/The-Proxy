@@ -20,6 +20,8 @@ $registryFileStream = '';
 
 $registries = $avdb->selectData($table, $columns);
 if (count($registries) > 0) {
+    $registryFileStream .= count($registries) . "\r\n";
+
     foreach ($registries as $registry) {
         $dados = unserialize($registry["dados"]);
         $dados = decode($dados);
@@ -31,6 +33,8 @@ if (count($registries) > 0) {
         $registryFileStream .= checkEmpty($registry["porta"]) . ',';
         $registryFileStream .= checkEmpty($dados) . "\r\n";
     }
+
+    $registryFileStream .= "EOF";
 } else {
     $registryFileStream = 'Não há nenhum registro cadastrado.';
 }

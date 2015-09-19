@@ -98,72 +98,84 @@ include_header();
                 $registries = array();
                 $badLines = array();
                 
-                foreach ($stream as $line) {
-                    $lineErrors = array();
-                    $line = explode(',', $line);
-
-                    if (count($line) == 6) {
-
-                        $line[1] = trim($line[1]);
-                        $line[2] = trim($line[2]);
-                        $line[3] = trim($line[3]);
-                        $line[4] = trim($line[4]);
-                        $line[5] = trim($line[5], "\r\n");
-
-                        if (checkIP($line[1])) {
-                            $registry["ip_origem"] = $line[1];
-                        } else {
-                            $line[1] = '<span class="red-text">' . $line[1] . '</span>';
-                            array_push($lineErrors, "IP de Origem mal formatado.");
-                        }
-
-                        if (checkIP($line[2])) {
-                            $registry["ip_destino"] = $line[2];
-                        } else {
-                            $line[2] = '<span class="red-text">' . $line[2] . '</span>';
-                            array_push($lineErrors, "IP de Destino mal formatado.");
-                        }
-
-                        if (checkProtocol($line[3])) {
-                            $registry["protocolo"] = $line[3];
-                        } else {
-                            $line[3] = '<span class="red-text">' . $line[3] . '</span>';
-                            array_push($lineErrors, "Protocolo mal formatado.");
-                        }
-
-                        if (checkDoor($line[4])) {
-                            $registry["porta"] = $line[4];
-                        } else {
-                            $line[4] = '<span class="red-text">' . $line[4] . '</span>';
-                            array_push($lineErrors, "Porta mal formatada.");
-                        }
-
-                        if (checkData($line[5])) {
-                            $registry["dados"] = $line[5];
-                        } else {
-                            $line[5] = '<span class="red-text">' . $line[5] . '</span>';
-                            array_push($lineErrors, "String de Dados inválida.");
-                        }
-
-                        if (count($lineErrors) == 0) {
-                            array_push($registries, $registry);
-                        } else {
-                            $line = '<td>' . implode(',', $line) . '</td><td>';
-                            
-                            foreach ($lineErrors as $lineError) {
-                                $line .= $lineError . '<br>';
-                            }
-                            
-                            $line .= '</td>';
-                            array_push($badLines, $line);
-                        }
-                    } else {
-                        $line = '<td class="red-text">' . implode(',', $line) . '</td><td>Linha mal formatada</td>';
-                        array_push($badLines, $line);
-                    }
+                if ($stream[0] != (count($stream) - 2)  && !$error) {
+                    $error = TRUE;
+                    $msg = 'A primeira linha deve conter a quantidade de pacotes';
                 }
-                
+
+                if ($stream[(count($stream) - 1)] != 'EOF' && !$error) {
+                    $error = TRUE;
+                    $msg = 'A última linha deve sinalizar o fim do arquivo com "EOF"';
+                }
+
                 if (!$error) :                 
+                    foreach ($stream as $key => $line) {
+                        if ($key != 0 && $key != count($stream) - 1) {
+                            $lineErrors = array();
+                            $line = explode(',', $line);
+
+                            if (count($line) == 6) {
+
+                                $line[1] = trim($line[1]);
+                                $line[2] = trim($line[2]);
+                                $line[3] = trim($line[3]);
+                                $line[4] = trim($line[4]);
+                                $line[5] = trim($line[5], "\r\n");
+
+                                if (checkIP($line[1])) {
+                                    $registry["ip_origem"] = $line[1];
+                                } else {
+                                    $line[1] = '<span class="red-text">' . $line[1] . '</span>';
+                                    array_push($lineErrors, "IP de Origem mal formatado.");
+                                }
+
+                                if (checkIP($line[2])) {
+                                    $registry["ip_destino"] = $line[2];
+                                } else {
+                                    $line[2] = '<span class="red-text">' . $line[2] . '</span>';
+                                    array_push($lineErrors, "IP de Destino mal formatado.");
+                                }
+
+                                if (checkProtocol($line[3])) {
+                                    $registry["protocolo"] = $line[3];
+                                } else {
+                                    $line[3] = '<span class="red-text">' . $line[3] . '</span>';
+                                    array_push($lineErrors, "Protocolo mal formatado.");
+                                }
+
+                                if (checkDoor($line[4])) {
+                                    $registry["porta"] = $line[4];
+                                } else {
+                                    $line[4] = '<span class="red-text">' . $line[4] . '</span>';
+                                    array_push($lineErrors, "Porta mal formatada.");
+                                }
+
+                                if (checkData($line[5])) {
+                                    $registry["dados"] = $line[5];
+                                } else {
+                                    $line[5] = '<span class="red-text">' . $line[5] . '</span>';
+                                    array_push($lineErrors, "String de Dados inválida.");
+                                }
+
+                                if (count($lineErrors) == 0) {
+                                    array_push($registries, $registry);
+                                } else {
+                                    $line = '<td>' . implode(',', $line) . '</td><td>';
+                                    
+                                    foreach ($lineErrors as $lineError) {
+                                        $line .= $lineError . '<br>';
+                                    }
+                                    
+                                    $line .= '</td>';
+                                    array_push($badLines, $line);
+                                }
+                            } else {
+                                $line = '<td class="red-text">' . implode(',', $line) . '</td><td>Linha mal formatada</td>';
+                                array_push($badLines, $line);
+                            }
+                        }
+                    }
+                
                     if (count($registries) > 0) : 
                         $toast = count($registry) . ' registro(s) importado(s) com sucesso.'; ?>
                         <p style="margin-top:0;font-size: 1.1em">Os registros abaixo foram importados:</p> 
