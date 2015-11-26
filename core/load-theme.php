@@ -18,9 +18,29 @@ class Load_Theme {
     {
         $this->loadLanguages();
         
+        $GLOBALS['v1'] = FALSE;
+
         if (isset($request['params'][0])) {
-            $templateFile = $request['params'][0];
+
             
+            if ( $request['params'][0] == 'v1') {
+                $GLOBALS['v1'] = TRUE;
+                $newrequest = array('0' => 'index');
+                foreach ($request['params'] as $key => $value) {
+                    if ($key > 0) {
+                        if (!empty($value)) {
+                            $newrequest[($key - 1)] = $value;
+                        } else if ($key == 1) {
+                            $newrequest[0] = 'index';
+                        }
+                    }
+                }
+                $request['params'] = $newrequest;
+                $templateFile = 'v1-' . $request['params'][0];
+            } else {
+                $templateFile = $request['params'][0];
+            }
+
             if ($this->isReserved($templateFile)) {
                 $templateFile = $templateFile . '-2';
             }

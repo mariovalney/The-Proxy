@@ -1,9 +1,10 @@
 <?php
 
 /* 
- * Index of theme "AvantDoc"
- * 
- * @package Documentation
+ * Página AES (criptografia) of theme "TheProxy"
+ *
+ * @verson: v1
+ * @package TheProxy
  */
 
 include ('inc/functions.php');

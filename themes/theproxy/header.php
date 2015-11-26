@@ -35,7 +35,13 @@
             <nav>
                 <div class="nav-wrapper blue darken-3 row">
                     <div class="col s10 offset-s1">
-                        <a href="<?php echo BASE_URL ?>" class="brand-logo center">THE PROXY</a>
+                        <?php 
+                            if ($GLOBALS['v1']) {
+                                echo '<span class="brand-logo center"><a href="' . BASE_URL .'">THE PROXY</a> - <a href="' . BASE_URL . 'v1/">PACOTES</a></span>';
+                            } else {
+                                echo '<a href="' . BASE_URL .'" class="brand-logo center">THE PROXY</a>';
+                            }
+                        ?>
                     </div>
                 </div>
             </nav>

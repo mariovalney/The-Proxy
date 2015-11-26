@@ -13,11 +13,8 @@ include_header(); ?>
         <?php _e('404') ?>
     </h1>
 
-    <p><?php _e('The page you are looking for is not here...')?></p>
-    <p>
-        <?php _e("Maybe it's because our site is still under construction.")?><br>
-        <?php _e("We hope we'll finish all the Docs and release the version Beta to download soon. :D")?>
-    </p>
+    <p>A página que você está procurando não está aqui...<br> Talvez seja porque o sistema está em contrução.   </p>
+    <p>Melhor <a href="<?php echo BASE_URL ?>">voltar para o início</a>.</p>
 </section>
 
 <?php include_footer();

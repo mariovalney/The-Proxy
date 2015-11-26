@@ -11,7 +11,7 @@ global $toast;
         <footer class="page-footer blue darken-4">
                 <div class="footer-copyright">
                     <div class="container center">
-                        <?php echo sprintf( __('%d &copy; THE PROXY - Desenvolvido por Mário Valney usando <a href="http://projetos.jangal.com.br/avant"><strong>Avant</strong></a> para a cadeira de Segurança e Auditoria Web da Faculdade Evolução.'), date('Y') ) ?>
+                        <?php echo sprintf( __('%d &copy; THE PROXY - Desenvolvido pelos Mários usando <a href="http://projetos.jangal.com.br/avant"><strong>Avant</strong></a> para a cadeira de Segurança e Auditoria Web da Faculdade Evolução.'), date('Y') ) ?>
                     </div>
                 </div>
         </footer>

@@ -1,9 +1,10 @@
 <?php
 
 /* 
- * Index of theme "AvantDoc"
- * 
- * @package Documentation
+ * Página Importar of theme "TheProxy"
+ *
+ * @verson: v1
+ * @package TheProxy
  */
 
 include ('inc/functions.php');
@@ -246,7 +247,10 @@ include_header();
     </div>
     <div class="row">
         <div class="col s12">
-            <a class="right" href="<?php echo BASE_URL ?>" >Voltar</a>
+            <a class="right" href="<?php echo BASE_URL . 'v1/' ?>" >Voltar</a>
+            <?php if (isset($error) && $error) {
+                echo '<span class="right" style="margin: 0 10px;"> | </span><a class="right" href="' . BASE_URL . 'v1/importar/" >Tentar Novamente</a>';
+            } ?>
         </div>
     </div>
 </section>
